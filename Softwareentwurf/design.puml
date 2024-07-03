@@ -1,0 +1,74 @@
+@startuml ChefkochScraper
+skinparam classAttributeIconSize 0
+class CkApiRequest{
+  -requestString: string
+  +request(): string
+}
+
+abstract class BaseEntity{
+  -id: guid
+  -copyCreatedAt: DateTime
+  -copyModifiedAt: DateTime
+}
+
+class RecipeModel{
+  -createdAt: DateTime
+  -difficulty: int
+  -editor: EditorModel
+  -hasImage: bool
+  -hasVideo: bool
+  -id: int
+  -imageCount: int
+  -isPlus: bool
+  -isPremium: bool
+  -isRejected: bool
+  -isSubmitted: bool
+  -nutrition: string
+  -owner: EditorModel
+  -preparationTime: int
+  -previewImageId: int
+  -previewImageUrlTemplate: string
+  -rating: double
+  -numVotes: int
+  -siteUrl: string
+  -slug: string
+  -status: int
+  -submissionDate: DateTime
+  -subtitle: string
+  -title: string
+  -type: int
+}
+
+class UserModel{
+}
+
+class CommentModel{
+}
+
+class TagModel{
+}
+
+class IngredientModel{
+}
+
+class Bots{
+  -appDbContext: ChefkochDbContext
+  +RecipeScraper()
+  +UserScraper()
+}
+
+class ChefkochDbContext {
+  -Users: DbSet<UserModel>
+  -Recipes: DbSet<RecipeModel>
+  -Comments: DbSet<CommentModel>
+  -Tags: DbSet<TagModel>
+  -Ingredients: DbSet<IngredientModel>
+}
+
+BaseEntity <|-- UserModel
+BaseEntity <|-- RecipeModel
+BaseEntity <|-- IngredientModel
+BaseEntity <|-- CommentModel
+BaseEntity <|-- TagModel
+
+@enduml

@@ -1,2 +1,5 @@
-# ChefkochScraper
-Ein Botsystem, um Daten von chefkoch.de abzugreifen
+Dies ist ein Projekt, das im Rahmen des Zweitsemestermoduls "Softwareentwicklung" an der TU Bergakademie Freiberg von Niklas Werner und Erik Langer erarbeitet wird.
+
+Die Rezept-Datenbank Chefkoch.de verfügt über eine öffentlich zugängliche API unter https://api.chefkoch.de/v2/. Mit diesem Projekt soll erstens diese API dokumentiert und in C# abgebildet werden, des weiteren ist eine Familie von Bots vorgesehen, die mit dieser API Daten von chefkoch abgreifen und in einer lokalen Datenbank speichern kann.
+
+Chefkoch verwendet 15-stellige IDs für die Rezeptseiten. Bei knapp 400.000 existierenden Rezepten müsste man ca. 2,5 Mrd. IDs zufällig generieren, um vielleicht einen Treffer zu landen. Für die User werden sogar UUIDs verwendet. Somit ist eine Zusammenarbeit mehrerer Bots nötig, um von schon bekannten Usern und Rezepten neue zu extrahieren und anzufragen.
