@@ -1,0 +1,16 @@
+@startuml Activity
+
+start
+
+repeat
+  if (Entries where lastCrawledAt == null?) then (yes)
+    :Get first entry where lastCrawledAt == null;
+    :Request entry via API;
+    :Deserialize JSON string to model class;
+    :Commit model to database;
+  else (no)
+    :Wait 1min;
+  endif
+repeat while (forever)
+
+@enduml
