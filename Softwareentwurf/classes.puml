@@ -41,15 +41,47 @@ class RecipeModel{
 }
 
 class UserModel{
+  +id: string
+  +username: string
+  +rank: int
+  +isVerified: bool
+  +hasAvatar: bool
+  +hasPaid: bool
+  +deleted: bool
+  +avatarImageUrlTemplate: string
+  +displayName: string
 }
 
 class CommentModel{
+  +id: int
+  +owner: UserModel
+  +createdAt: DateTime
+  +text: string
+  +helpful: bool
+  +helpfulCount: int
+  +parentID: int
+  +children: int
 }
 
 class TagModel{
+  +id: int
+  +name: string
 }
 
 class IngredientModel{
+  +id: int
+  +name: string
+  +unit: string
+  +unitId: int
+  +amount: float
+  +isBasic: bool
+  +usageInfo: string
+  +url: string
+  +foodId: int
+  +productGroup: string
+  +blsKey: string
+  +previewImageUrlTemplate: string
+  +sponsoring: string
 }
 
 class Bots{
