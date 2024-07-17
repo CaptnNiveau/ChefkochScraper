@@ -1,0 +1,4 @@
+- auf suchseite gehen
+- devtools->network öffnen
+- "url:https://api.chefkoch.de/v2" als Filter setzen
+- einzeln filter auf webseite setzen
