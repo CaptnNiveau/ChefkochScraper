@@ -15,7 +15,7 @@ abstract class BaseEntity{
 class RecipeModel{
   +createdAt: DateTime
   +difficulty: int
-  +editor: EditorModel
+  +editor: UserModel
   +hasImage: bool
   +hasVideo: bool
   +id: int
@@ -25,7 +25,7 @@ class RecipeModel{
   +isRejected: bool
   +isSubmitted: bool
   +nutrition: string
-  +owner: EditorModel
+  +owner: UserModel
   +preparationTime: int
   +previewImageId: int
   +previewImageUrlTemplate: string
@@ -44,6 +44,7 @@ class UserModel{
   +id: string
   +username: string
   +rank: int
+  +role: string
   +isVerified: bool
   +hasAvatar: bool
   +hasPaid: bool
