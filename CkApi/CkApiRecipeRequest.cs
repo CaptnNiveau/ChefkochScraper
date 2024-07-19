@@ -1,7 +1,10 @@
 namespace ChefkochScraper;
 
+/// <summary>
+/// Klasse für Rezept-Anfragen.
+/// </summary>
 public class CkApiRecipeRequest: CkApiRequestBase{
-    public CkApiRecipeRequest(string? id){
+    public CkApiRecipeRequest(string? id = null){
         this.ApiUrl += "/recipes";
         this.Id = id;
     }

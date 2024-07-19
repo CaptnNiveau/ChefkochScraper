@@ -1,10 +1,35 @@
+namespace ChefkochScraper;
+
+/// <summary>
+/// Abstrakte Basisklasse aller API-Anfragen.
+/// </summary>
 public abstract class CkApiRequestBase{
+    /// <summary>
+    /// Basis-Url der API.
+    /// </summary>
     protected string ApiUrl { get; set;} = "https://api.chefkoch.de/v2";
+
+    /// <summary>
+    /// ID eines Datensatzes (optional).
+    /// </summary>
     protected string? Id { get; set;}
+
+    /// <summary>
+    /// Unterseite (siehe documentation/ApiDoc.md, optional).
+    /// </summary>
     protected string? Subpage { get; set;}
+
+    /// <summary>
+    /// Liste an Parametern mit Werten, die der Suche übergeben werden sollen.
+    /// </summary>
     protected List<string> Parameters { get; set; } = [];
     
-    public async Task<string> Request(string? url){
+    /// <summary>
+    /// Logik zum Stellen einer Anfrage an die API.
+    /// </summary>
+    /// <param name="url">Optionale Request-Url, wird aus Instanzdaten konstruiert wenn nicht angegeben.</param>
+    /// <returns>Antwort-String.</returns>
+    public async Task<string> Request(string? url = null){
         url = url ?? this.constructRequestUrl();
 
         HttpClient client = new();
@@ -23,6 +48,7 @@ public abstract class CkApiRequestBase{
                     Thread.Sleep(10000);
                 } else {
                     tryAgain = false;
+                    Console.WriteLine(e);
                 }
             }
         }

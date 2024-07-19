@@ -1,5 +1,8 @@
 namespace ChefkochScraper;
 
+/// <summary>
+/// Klasse für Nutzer-Anfragen.
+/// </summary>
 public class CkApiUserRequest: CkApiRequestBase{
     public CkApiUserRequest(string? id){
         this.ApiUrl += "/users";

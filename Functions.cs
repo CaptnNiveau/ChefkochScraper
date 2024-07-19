@@ -1,20 +1,20 @@
 namespace ChefkochScraper;
 
-public class Functions{
+public static class Functions{
 
     /// <summary>
     /// Testfunktion, Werte für orderBy durchprobiert und deren Outputs mit dem Output ohne Parameter vergleich.
     /// </summary>
-    public async void testOrderBy(){
-        CkApiRecipeRequest ckApi = new(null);
+    public static async void testOrderBy(){
+        CkApiRecipeRequest ckApi = new();
         
         int[] test = [];
-        string baseline = await ckApi.Request(null);
+        string baseline = await ckApi.Request();
         Console.WriteLine($"Starting test");
 
         for (int i = 0; i < 100; i++){
             ckApi.ClearParameters();
-            if (await ckApi.AddCustomParameters([$"OrderBy={i}"]).Request(null) != baseline){
+            if (await ckApi.AddCustomParameters([$"OrderBy={i}"]).Request() != baseline){
                 test.Append(i);
                 Console.WriteLine($"Found {i}");
             } else {
