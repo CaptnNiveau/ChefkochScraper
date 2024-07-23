@@ -3,6 +3,7 @@ using System;
 using ChefkochScraper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChefkochScraper.Migrations
 {
     [DbContext(typeof(ChefkochContext))]
-    partial class ChefkochContextModelSnapshot : ModelSnapshot
+    [Migration("20240723203805_03")]
+    partial class _03
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
@@ -43,7 +46,7 @@ namespace ChefkochScraper.Migrations
 
                     b.HasIndex("RecipeDbModelLocalId");
 
-                    b.ToTable("FullTags", (string)null);
+                    b.ToTable("FullTags");
                 });
 
             modelBuilder.Entity("ChefkochScraper.IngredientDbModel", b =>
@@ -82,7 +85,7 @@ namespace ChefkochScraper.Migrations
 
                     b.HasKey("LocalId");
 
-                    b.ToTable("Ingredients", (string)null);
+                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("ChefkochScraper.IngredientGroupDbModel", b =>
@@ -107,7 +110,7 @@ namespace ChefkochScraper.Migrations
 
                     b.HasIndex("RecipeDbModelLocalId");
 
-                    b.ToTable("IngredientGroups", (string)null);
+                    b.ToTable("IngredientGroups");
                 });
 
             modelBuilder.Entity("ChefkochScraper.IngredientUsedDbModel", b =>
@@ -149,7 +152,7 @@ namespace ChefkochScraper.Migrations
 
                     b.HasIndex("ingredientLocalId");
 
-                    b.ToTable("IngredientsUsed", (string)null);
+                    b.ToTable("IngredientsUsed");
                 });
 
             modelBuilder.Entity("ChefkochScraper.RecipeDbModel", b =>
@@ -315,7 +318,7 @@ namespace ChefkochScraper.Migrations
 
                     b.HasIndex("previewImageOwnerLocalId");
 
-                    b.ToTable("Recipes", (string)null);
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("ChefkochScraper.UserModel", b =>
@@ -363,7 +366,7 @@ namespace ChefkochScraper.Migrations
 
                     b.HasKey("LocalId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ChefkochScraper.FullTagModel", b =>

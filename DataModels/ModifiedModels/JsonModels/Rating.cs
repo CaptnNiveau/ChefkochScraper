@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChefkochScraper
 {
-    public class Rating : EntityBase
+    public class Rating
     {
         public double? rating { get; set; }
         public int? numVotes { get; set; }

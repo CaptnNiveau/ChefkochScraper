@@ -7,10 +7,11 @@ namespace ChefkochScraper;
 public class ChefkochContext : DbContext
 {
     public DbSet<UserModel> Users { get; set; }
-    public DbSet<RecipeModel> Recipes { get; set; }
-    public DbSet<Ingredient> Ingredients{ get; set; }
-    public DbSet<FullRecipeTag> FullTags { get; set; }
-    public DbSet<IngredientGroup> IngredientGroups { get; set; }
+    public DbSet<RecipeDbModel> Recipes { get; set; }
+    public DbSet<FullTagModel> FullTags { get; set; }
+    public DbSet<IngredientDbModel> Ingredients{ get; set; }
+    public DbSet<IngredientGroupDbModel> IngredientGroups { get; set; }
+    public DbSet<IngredientUsedDbModel> IngredientsUsed { get; set; }
     public string DbPath { get; }
 
     public ChefkochContext(){

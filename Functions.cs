@@ -27,10 +27,10 @@ public static class Functions{
     }
 
     public static async void testrun(){
-        CkApiRecipeRequest ckApi = new("820481186558221");
+        CkApiRecipeRequest ckApi = new("1974651320674438");
         string input = await ckApi.Request();
 
-        RecipeModel test = JsonParser.ReadJson(input);
+        RecipeDbModel test = JsonParser.ReadJson(input).ConvertToDbModel();
 
         ChefkochContext appDb = new ChefkochContext();
         appDb.Add(test);
