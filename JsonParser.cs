@@ -34,9 +34,10 @@ namespace ChefkochScraper
                 if (deserializedRecipe != null)
                     recipe = deserializedRecipe;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.WriteLine("Input JSON is not valid");
+                Console.WriteLine(e);
             }
 
             return recipe;
