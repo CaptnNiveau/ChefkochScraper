@@ -60,7 +60,7 @@ public abstract class CkApiRequestBase{
         string requestUrl = this.ApiUrl;
 
         if (this.Id != null) {
-            requestUrl += this.Id + this.Subpage;
+            requestUrl += "/" + this.Id + this.Subpage;
         }
 
         //could add validation, but unneccessary parameters dont do anything, so idk

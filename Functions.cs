@@ -25,4 +25,21 @@ public static class Functions{
 
         System.Console.WriteLine(test);
     }
+
+    public static async void testrun(){
+        CkApiRecipeRequest ckApi = new("820481186558221");
+        string input = await ckApi.Request();
+
+        RecipeModel test = JsonParser.ReadJson(input);
+
+        ChefkochContext appDb = new ChefkochContext();
+        appDb.Add(test);
+        appDb.SaveChanges();
+
+        var owner = appDb.Recipes
+            .First()
+            .owner;
+
+        Console.Write(owner.username);
+    }
 }
