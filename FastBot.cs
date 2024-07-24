@@ -9,6 +9,8 @@ namespace ChefkochScraper
         private static List<string> scrapedRecipeIds;
         private static List<string> unscrapedRecipeIds;
         private static ChefkochContext appDb;
+
+        //set a higher number on systems with a better CPU / internet connection
         private static int parralelUserSearches = 512;
         bool scrapeRecipes;
 
@@ -58,7 +60,7 @@ namespace ChefkochScraper
                 }
                 appDb.SaveChanges();
 
-                Console.WriteLine("Scraped recipes: " + scrapedRecipeIds.Count + " (+ " + recipeDbModels.Count() + ")");
+                Console.WriteLine("scraped recipes: " + scrapedRecipeIds.Count + " (+ " + recipeDbModels.Count() + ")");
             }
         }
 
