@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChefkochScraper
@@ -38,7 +39,9 @@ namespace ChefkochScraper
         {
             while (scrapeRecipes)
             {
-                Console.WriteLine("scraped users: " + scrapedUserIds.Count + " / " + unscrapedUserIds.Count + " unscraped");
+                Stopwatch fastSw = new();
+                fastSw.Start();
+                Console.WriteLine("scraped users: " + scrapedUserIds.Count + " | " + unscrapedUserIds.Count + " unscraped");
                 List<Task<RecipeDbModel?[]>> getUserRecipes = new();
                 for (int i = parralelUserSearches; i > 0; i--)
                 {
@@ -60,7 +63,9 @@ namespace ChefkochScraper
                 }
                 appDb.SaveChanges();
 
-                Console.WriteLine("scraped recipes: " + scrapedRecipeIds.Count + " (+ " + recipeDbModels.Count() + ")");
+                Console.WriteLine("scraped recipes: " + scrapedRecipeIds.Count + " (+ " + recipeDbModels.Count() + ") | "
+                 + ((float)recipeDbModels.Count() / fastSw.ElapsedMilliseconds * 1000).ToString("F2") + " /s");
+                fastSw.Stop();
             }
         }
 
