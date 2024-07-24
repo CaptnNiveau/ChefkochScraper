@@ -80,7 +80,7 @@ namespace ChefkochScraper
             }
             RecipeDbModel?[] recipeDbModels = await Task.WhenAll(RecipeModelsToAdd);
 
-            unscrapedUserIds.RemoveAt(0);
+            unscrapedUserIds.Remove(userId);
             scrapedUserIds.Add(userId);
             return recipeDbModels;
         }
