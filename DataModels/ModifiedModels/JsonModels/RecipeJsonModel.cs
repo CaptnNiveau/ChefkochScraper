@@ -9,7 +9,8 @@ namespace ChefkochScraper
         public Nutrition? nutrition { get; set; }
         public List<IngredientGroupJsonModel> ingredientGroups { get; set; }
 
-        public RecipeDbModel ConvertToDbModel(){
+        public RecipeDbModel ConvertToDbModel()
+        {
             RecipeDbModel dbModel = new RecipeDbModel();
 
             var type = typeof(RecipeJsonModel);
@@ -17,18 +18,25 @@ namespace ChefkochScraper
 
             foreach (var sourceProperty in type.GetProperties())
             {
-                if (!ignoreProperties.Contains(sourceProperty.Name)){
+                if (!ignoreProperties.Contains(sourceProperty.Name))
+                {
                     var targetProperty = type.GetProperty(sourceProperty.Name);
                     targetProperty.SetValue(dbModel, sourceProperty.GetValue(this, null), null);
                 }
             }
+            
+            if (dbModel.rating != null)
+            {
+                dbModel.rating = this.rating.rating;
+                dbModel.numVotes = this.rating.numVotes;
+            }
 
-            dbModel.rating = this.rating.rating;
-            dbModel.numVotes = this.rating.numVotes;
-
-            dbModel.fatContent = this.nutrition.fatContent;
-            dbModel.proteinContent = this.nutrition.proteinContent;
-            dbModel.carbohydrateContent = this.nutrition.carbohydrateContent;
+            if (this.nutrition != null)
+            {
+                dbModel.fatContent = this.nutrition.fatContent;
+                dbModel.proteinContent = this.nutrition.proteinContent;
+                dbModel.carbohydrateContent = this.nutrition.carbohydrateContent;
+            }
 
             return dbModel;
         }

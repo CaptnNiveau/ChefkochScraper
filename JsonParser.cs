@@ -5,42 +5,24 @@ namespace ChefkochScraper
 {
     public class JsonParser
     {
-        //not sure if we need an async implementation of this
-        public static async Task<RecipeJsonModel> ReadJsonAsync(Stream inputJson)
-        {
-            RecipeJsonModel recipe = new RecipeJsonModel();
 
+        public T? ReadJson<T>(string inputJson)
+        {
             try
             {
-                RecipeJsonModel? deserializedRecipe = await JsonSerializer.DeserializeAsync<RecipeJsonModel>(inputJson);
-                if (deserializedRecipe != null)
-                    recipe = deserializedRecipe;
+                return JsonSerializer.Deserialize<T>(inputJson);
             }
-            catch (Exception)
+            catch
             {
-                Console.WriteLine("Input JSON is not valid");
+                return default;
             }
-
-            return recipe;
         }
 
-        public static RecipeJsonModel ReadJson(string inputJson)
+        public async Task<T?> ReadJsonAsync<T>(Stream inputJson)
         {
-            RecipeJsonModel recipe = new RecipeJsonModel();
+            var deserializedCommentGroup = await JsonSerializer.DeserializeAsync<T>(inputJson);
 
-            try
-            {
-                RecipeJsonModel? deserializedRecipe = JsonSerializer.Deserialize<RecipeJsonModel>(inputJson);
-                if (deserializedRecipe != null)
-                    recipe = deserializedRecipe;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Input JSON is not valid");
-                Console.WriteLine(e);
-            }
-
-            return recipe;
+            return deserializedCommentGroup;
         }
     }
 }
