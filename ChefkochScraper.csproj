@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="automapper" Version="13.0.1" />
+    <PackageReference Include="htmlagilitypack" Version="1.11.61" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>

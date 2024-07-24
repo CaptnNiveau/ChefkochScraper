@@ -1,3 +1,6 @@
+using System;
+using Microsoft.EntityFrameworkCore;
+
 namespace ChefkochScraper;
 
 public static class Functions{
@@ -27,7 +30,7 @@ public static class Functions{
     }
 
     public static async void testrun(){
-        CkApiRecipeRequest ckApi = new("1974651320674438");
+        CkApiRecipeRequest ckApi = new("592547d097443354dd8cc30086b470cc");
         string input = await ckApi.Request();
 
         RecipeDbModel test = JsonParser.ReadJson(input).ConvertToDbModel();
@@ -37,9 +40,9 @@ public static class Functions{
         appDb.SaveChanges();
 
         var owner = appDb.Recipes
-            .First()
-            .owner;
+            .Include(r => r.owner)
+            .First();
 
-        Console.Write(owner.username);
+        Console.Write(owner.owner.username);
     }
 }
