@@ -36,7 +36,7 @@ namespace ChefkochScraper
         {
             while (scrapeRecipes)
             {
-                Console.WriteLine("unscraped users:" + unscrapedUserIds.Count);
+                Console.WriteLine("scraped users: " + scrapedUserIds.Count + " / " + unscrapedUserIds.Count + " unscraped");
                 List<Task<RecipeDbModel?[]>> getUserRecipes = new();
                 for (int i = parralelUserSearches; i > 0; i--)
                 {
@@ -50,16 +50,15 @@ namespace ChefkochScraper
 
                 RecipeDbModel?[][] newRecipes = await Task.WhenAll(getUserRecipes);
                 RecipeDbModel?[] recipeDbModels = newRecipes.SelectMany(array => array).ToArray();
-                Console.WriteLine(recipeDbModels.Count());
 
                 foreach (RecipeDbModel? recipe in recipeDbModels)
                 {
-                    if (recipe != null)
+                    if (recipe != null && recipe.id != null)
                         appDb.Add(recipe);
                 }
                 appDb.SaveChanges();
 
-                Console.WriteLine("Scraped recipe ids: " + scrapedRecipeIds.Count);
+                Console.WriteLine("Scraped recipe ids: " + scrapedRecipeIds.Count + " (+ " + recipeDbModels.Count() + ")" + " / " + unscrapedRecipeIds.Count + " unscraped");
             }
         }
 
