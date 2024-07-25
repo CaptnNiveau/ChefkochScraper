@@ -12,17 +12,17 @@ namespace ChefkochScraper
         private static ChefkochContext appDb;
 
         //set a higher number on systems with a better CPU / internet connection
-        private static int parralelUserSearches = 512;
+        private static int parallelUserSearches = 512;
         bool scrapeRecipes;
 
         public async Task Startup()
         {
             appDb = new ChefkochContext();
             unscrapedUserIds = GetScrapedUserIds();
-            unscrapedRecipeIds = GetScrapedRecipeIds();
+            scrapedRecipeIds = GetScrapedRecipeIds();
 
             Console.WriteLine("Found " + unscrapedUserIds.Count + " users in existing database");
-            Console.WriteLine("Found " + unscrapedRecipeIds.Count + " recipes in existing database");
+            Console.WriteLine("Found " + scrapedRecipeIds.Count + " recipes in existing database");
 
             //CkApiRecipeRequest ckApi = new("592547d097443354dd8cc30086b470cc");
             //string input = await ckApi.Request();
@@ -32,7 +32,7 @@ namespace ChefkochScraper
             await AddNullRecipes();
             scrapeRecipes = true;
             scrapedUserIds = new();
-            scrapedRecipeIds = new();
+            unscrapedRecipeIds = new();
             await CreateScraperTasks();
         }
         private async Task CreateScraperTasks()
@@ -43,14 +43,10 @@ namespace ChefkochScraper
                 fastSw.Start();
                 Console.WriteLine("scraped users: " + scrapedUserIds.Count + " | " + unscrapedUserIds.Count + " unscraped");
                 List<Task<RecipeDbModel?[]>> getUserRecipes = new();
-                for (int i = parralelUserSearches; i > 0; i--)
+                for (int i = 0; i < parallelUserSearches; i++)
                 {
-                    string id;
                     if (unscrapedUserIds.Count > i)
-                    {
-                        id = unscrapedUserIds[i];
-                        getUserRecipes.Add(GetRecipesFromUser(id));
-                    }
+                        getUserRecipes.Add(GetRecipesFromUser(unscrapedUserIds[i]));
                 }
 
                 RecipeDbModel?[][] newRecipes = await Task.WhenAll(getUserRecipes);
@@ -86,8 +82,8 @@ namespace ChefkochScraper
             }
             RecipeDbModel?[] recipeDbModels = await Task.WhenAll(RecipeModelsToAdd);
 
-            unscrapedUserIds.Remove(userId);
             scrapedUserIds.Add(userId);
+            unscrapedUserIds.Remove(userId);
             return recipeDbModels;
         }
 
@@ -115,9 +111,9 @@ namespace ChefkochScraper
             RecipeDbModel? recipeDb = new();
             if (recipeJsonModel != null)
                 recipeDb = recipeJsonModel.ConvertToDbModel();
+            scrapedRecipeIds.Add(recipeId);
             if (unscrapedRecipeIds.Contains(recipeId))
                 unscrapedRecipeIds.Remove(recipeId);
-            scrapedRecipeIds.Add(recipeId);
 
             return recipeDb;
         }
